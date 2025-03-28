@@ -32,9 +32,9 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_
 
 # Entraînement du modèle GradientBoostingClassifier sur les données d'entraînement avec GridSearchCV
 grid_search = GridSearchCV(GradientBoostingClassifier(random_state=42), { 
-    'n_estimators': [50, 100, 150],  # Nombre d'arbres (estimators)
-    'learning_rate': [0.01, 0.05, 0.1],  # Taux d'apprentissage
-    'max_depth': [3, 5, 10],  # Profondeur des arbres
+    'n_estimators': [175,200,225,250],  # Nombre d'arbres (estimators)
+    'learning_rate': [0.25,0.30,0.35],  # Taux d'apprentissage
+    'max_depth': [7,8,9,10,11],  # Profondeur des arbres
     'min_samples_split': [2, 5],  # Nombre minimum d'échantillons pour diviser un nœud
     'min_samples_leaf': [1, 2]  # Nombre minimum d'échantillons dans un nœud terminal
 }, cv=5, scoring='accuracy', n_jobs=-1)  # Utiliser tous les cœurs du processeur pour accélérer la recherche
