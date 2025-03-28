@@ -1,2 +1,2 @@
 # TP-Machine-Learning
-A regression project
+Binary classification problem on electricity price 
