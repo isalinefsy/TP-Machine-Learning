@@ -32,10 +32,11 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_
 
 # Entraînement du modèle RandomForestClassifier sur les données d'entraînement
 grid_search = GridSearchCV(RandomForestClassifier(random_state=42, n_jobs=-1), { 
-    'n_estimators': [5, 10, 15, 20, 25, 30, 50, 100, 200, 300],
-    'max_depth': [5, 10, None], 
-    'min_samples_split': [2, 5],
-    'min_samples_leaf': [1, 2]
+    'n_estimators': [50, 100, 200, 300, 400, 500],  # Augmenter le nombre d'arbres
+    'max_depth': [10, 20, 30, None],  # Tester des profondeurs plus grandes
+    'min_samples_split': [2, 5, 10],  # Ajouter plus de valeurs pour le split
+    'min_samples_leaf': [1, 2, 4],  # Tester des tailles de feuilles plus grandes
+    'max_features': ['sqrt', 'log2', None]  # Ajouter des stratégies pour les features
 }, cv=5, scoring='accuracy', n_jobs=-1)  # Utiliser tous les cœurs du processeur pour accélérer la recherche
 grid_search.fit(X_train, y_train)
 
@@ -68,5 +69,5 @@ dataTest['bc_price_evo'] = dataTest['bc_price_evo'].map({1: 'UP', 0: 'DOWN'})
 
 # Sauvegarde du fichier de soumission
 submission = dataTest[['id', 'bc_price_evo']]
-submission.to_csv('../data/randomForest_submission2.csv', index=False)
-print("Fichier de soumission '../data/randomForest_submission.csv' généré avec succès !")
+submission.to_csv('../data/target/randomForest_submission2.csv', index=False)
+print("Fichier de soumission '../data/target/randomForest_submission.csv' généré avec succès !")

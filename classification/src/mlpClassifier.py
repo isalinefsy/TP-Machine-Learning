@@ -69,5 +69,5 @@ dataTest['bc_price_evo'] = dataTest['bc_price_evo'].map({1: 'UP', 0: 'DOWN'})
 
 # Sauvegarde du fichier de soumission
 submission = dataTest[['id', 'bc_price_evo']]
-submission.to_csv('../data/MLP_submission.csv', index=False)
-print("Fichier de soumission '../data/MLP_submission.csv' généré avec succès !")
+submission.to_csv('../data/target/MLP_submission.csv', index=False)
+print("Fichier de soumission '../data/target/MLP_submission.csv' généré avec succès !")
