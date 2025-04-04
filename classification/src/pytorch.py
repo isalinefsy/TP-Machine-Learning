@@ -12,7 +12,7 @@ train_df = pd.read_csv("../data/train.csv")
 test_df = pd.read_csv("../data/test.csv")
 
 # Conversion bc_price_evo to 0/1
-train_df['bc_price_evo'] = train_df['bc_price_evo'].map({'UP': 0, 'DOWN': 1})
+train_df['bc_price_evo'] = train_df['bc_price_evo'].map({'UP': 1, 'DOWN': 0})
 #train_df = train_df[train_df["ab_demand"] != 0.422915]
 
 train_df = train_df.astype(float)
@@ -44,18 +44,25 @@ class PricePredictionNN(nn.Module):
     def __init__(self, input_size):
         super(PricePredictionNN, self).__init__()
         self.fc1 = nn.Linear(input_size, 32)
-        self.fc2 = nn.Linear(32, 8)
-        self.fc3 = nn.Linear(8, 2)
+        self.dropout = nn.Dropout(0.2)
+        self.fc2 = nn.Linear(32, 16)
+        self.dropout = nn.Dropout(0.2)
+        self.fc3 = nn.Linear(16, 8)
+        self.dropout = nn.Dropout(0.2)
+        self.fc4 = nn.Linear(8, 2)
         self.dropout = nn.Dropout(0.2)
         self.bn1 = nn.BatchNorm1d(32)
-        self.bn2 = nn.BatchNorm1d(8)
+        self.bn2 = nn.BatchNorm1d(16)
+        self.bn3 = nn.BatchNorm1d(8)
+        self.bn4 = nn.BatchNorm1d(2)
         self.relu = nn.ReLU()
         self.softmax = nn.Softmax(dim=1)
     
     def forward(self, x):
         x = self.relu(self.fc1(x))
         x = self.relu(self.fc2(x))
-        x = self.fc3(x)
+        x = self.relu(self.fc3(x))
+        x = self.fc4(x)
         return self.softmax(x)
 
 # Initialize model, loss function and optimizer
@@ -94,11 +101,11 @@ test_preds_df = pd.DataFrame({
 })
 
 # Map predictions back to original labels
-test_preds_df['bc_price_evo'] = test_preds_df['bc_price_evo'].map({0: 'DOWN', 1: 'UP'})
+test_preds_df['bc_price_evo'] = test_preds_df['bc_price_evo'].map({1: 'UP', 0: 'DOWN'})
 
 # Save predictions to CSV
 submission = pd.DataFrame({
-    'id': test_df['id'],
+    'id': test_df['id'].astype(int),
     'bc_price_evo': test_preds_df['bc_price_evo']
 })
 submission.to_csv("submission.csv", index=False)
