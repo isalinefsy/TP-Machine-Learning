@@ -2,7 +2,7 @@ import csv
 import pandas as pd
 import numpy as np
 
-dataTrain = pd.read_table("./data/train.csv", sep=",")
+dataTrain = pd.read_table("../data/train.csv", sep=",")
 print(dataTrain)
 
 dataTrain.info()

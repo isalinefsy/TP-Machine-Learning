@@ -64,5 +64,5 @@ dataTest['bc_price_evo'] = dataTest['bc_price_evo'].map({1: 'UP', 0: 'DOWN'})
 
 # Sauvegarde du fichier de soumission
 submission = dataTest[['id', 'bc_price_evo']]
-submission.to_csv('../data/decisionTree_submission.csv', index=False)
-print("Fichier de soumission '../data/decisionTree_submission.csv' généré avec succès !")
+submission.to_csv('../data/target/decisionTree_submission.csv', index=False)
+print("Fichier de soumission '../data/target/decisionTree_submission.csv' généré avec succès !")
