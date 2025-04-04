@@ -73,9 +73,9 @@ predictions = model.predict(X_test).flatten()  # Prédictions entre 0 et 1
 labels = np.where(predictions >= 0.5, "UP", "DOWN")
 
 # Sauvegarde des résultats
-output_df = pd.DataFrame({"ID": IDs_test, "bc_price_evo": labels})
-output_df.to_csv("../data/NeuralNetworkTF.csv", index=False)
+output_df = pd.DataFrame({"id": IDs_test, "bc_price_evo": labels})
+output_df.to_csv("../data/NeuralNetworkTF_submission.csv", index=False)
 
-print("Prédictions sauvegardées dans NeuralNetworkTF.csv")
+print("Prédictions sauvegardées dans NeuralNetworkTF_submission.csv")
 
 
