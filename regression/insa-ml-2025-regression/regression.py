@@ -371,7 +371,6 @@ print(f"Mean absolute error : {np.mean(np.abs(xgb_model.predict(X_test) - y_test
 
 
 #Je dois produire un document csv, avec un header contenant "id" et "co2", et les valeurs de co2 prédites par le modèle
-#Je vais donc créer un dataframe avec les données de test, et les valeurs prédites par le modèle
 
 
 #On va maintenant faire des prédictions sur les données de test
